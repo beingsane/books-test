@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression as DbExpression;
 
 /**
  * This is the model class for table "books".
@@ -33,11 +35,26 @@ class Book extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'date_create', 'date_update'], 'required'],
-            [['date_create', 'date_update', 'date'], 'safe'],
-            [['author_id'], 'integer'],
+            [['name'], 'required'],
             [['name'], 'string', 'max' => 100],
+            [['author_id'], 'integer'],
+            [['date'], 'safe'],
             [['preview'], 'string', 'max' => 300]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'TimestampBehavior' => [
+                'class' => TimestampBehavior::className(),
+                'value' => new DbExpression('NOW()'),
+                'createdAtAttribute' => 'date_create',
+                'updatedAtAttribute' => 'date_update',
+            ],
         ];
     }
 
@@ -52,8 +69,8 @@ class Book extends \yii\db\ActiveRecord
             'date_create' => Yii::t('app', 'Date Create'),
             'date_update' => Yii::t('app', 'Date Update'),
             'preview' => Yii::t('app', 'Preview'),
-            'date' => Yii::t('app', 'Date'),
-            'author_id' => Yii::t('app', 'Author ID'),
+            'date' => Yii::t('app', 'Release date'),
+            'author_id' => Yii::t('app', 'Author'),
         ];
     }
 
