@@ -4,7 +4,7 @@ namespace common\helpers;
 use Yii;
 use kartik\select2\Select2;
 use kartik\file\FileInput;
-use common\widgets\datePicker;
+use common\widgets\DatePicker;
 
 class Render
 {

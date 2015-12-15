@@ -26,8 +26,8 @@ use common\models\Author;
     <?php if ($model->preview) { ?>
         <br>
         <div class="image-gallery">
-            <a class="image-gallery-item" href="<?= Url::toRoute($model->getPreviewUrl()) ?>">
-                <img src="<?= Url::toRoute($model->getPreviewUrl()) ?>"></img>
+            <a class="image-gallery-item" href="<?= Url::to($model->getPreviewUrl()) ?>">
+                <img src="<?= Url::to($model->getPreviewUrl()) ?>"></img>
             </a>
         </div>
         <br>
@@ -37,7 +37,7 @@ use common\models\Author;
 
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

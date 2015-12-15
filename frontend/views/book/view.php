@@ -21,8 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
             if (!$model->preview) return '';
 
             $link = Html::a(
-                '<img src="'. Url::toRoute($model->getPreviewUrl()) .'"></img>',
-                Url::toRoute($model->getPreviewUrl()),
+                '<img src="'. Url::to($model->getPreviewUrl()) .'"></img>',
+                Url::to($model->getPreviewUrl()),
                 ['class' => 'image-gallery-item']
             );
 

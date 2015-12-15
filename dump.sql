@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS `authors` (
 -- Dumping data for table books_test.authors: ~2 rows (approximately)
 /*!40000 ALTER TABLE `authors` DISABLE KEYS */;
 INSERT INTO `authors` (`id`, `firstname`, `lastname`) VALUES
-	(1, 'Дин', 'Кунц'),
-	(2, 'Иван', 'Иванов');
+	(1, 'Р”РёРЅ', 'РљСѓРЅС†'),
+	(2, 'РРІР°РЅ', 'РРІР°РЅРѕРІ');
 /*!40000 ALTER TABLE `authors` ENABLE KEYS */;
 
 
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `books` (
 -- Dumping data for table books_test.books: ~1 rows (approximately)
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
 INSERT INTO `books` (`id`, `name`, `date_create`, `date_update`, `preview`, `date`, `author_id`) VALUES
-	(1, 'Фантомы', '2015-12-15 12:32:18', '2015-12-15 12:32:18', 'a/567008528941a.jpg', '2014-04-20 00:00:00', 1);
+	(1, 'Р¤Р°РЅС‚РѕРјС‹', '2015-12-15 12:32:18', '2015-12-15 12:32:18', 'a/567008528941a.jpg', '2014-04-20 00:00:00', 1);
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
 
 

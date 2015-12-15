@@ -6,9 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Book */
 
-$this->title = Yii::t('app', 'Update {modelClass}: ', [
-    'modelClass' => 'Book',
-]) . ' ' . $model->name;
+$this->title = Yii::t('app', 'Update') . ': ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Books'), 'url' => Url::previous()];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update') . ': ' . $model->id;
 ?>

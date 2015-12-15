@@ -43,6 +43,7 @@ class Author extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'firstname' => Yii::t('app', 'Firstname'),
             'lastname' => Yii::t('app', 'Lastname'),
+            'name' => Yii::t('app', 'Author'),
         ];
     }
 
