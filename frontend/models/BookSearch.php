@@ -21,6 +21,7 @@ class BookSearch extends Book
     public function rules()
     {
         return [
+            [['id'], 'safe'],
             [['name', 'date_from', 'date_to', 'author_id'], 'safe'],
         ];
     }
@@ -44,10 +45,20 @@ class BookSearch extends Book
     public function search($params)
     {
         $query = Book::find();
+        $query->joinWith(['author']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => ['date_create' => SORT_DESC],
+            ],
         ]);
+
+        unset($dataProvider->sort->attributes['preview']);
+        $dataProvider->sort->attributes['author.name'] = [
+            'asc' => ['authors.firstname' => SORT_ASC, 'authors.lastname' => SORT_ASC],
+            'desc' => ['authors.firstname' => SORT_DESC, 'authors.lastname' => SORT_DESC],
+        ];
 
         $this->load($params);
 

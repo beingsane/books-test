@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::tag('div', $link, ['class' => 'image-gallery']);
                 }
             ],
-            'author_id',
+            'author.name',
             'date:date',
             'date_create:relativeTime',
 
