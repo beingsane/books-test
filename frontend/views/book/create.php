@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 
 
@@ -7,7 +8,7 @@ use yii\helpers\Html;
 /* @var $model common\models\Book */
 
 $this->title = Yii::t('app', 'Create Book');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Books'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Books'), 'url' => Url::previous()];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-create">
