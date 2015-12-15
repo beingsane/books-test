@@ -8,7 +8,11 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+
     'defaultRoute' => 'book/index',
+    'language' => 'ru-RU',
+    'sourceLanguage' => 'en-US',
+
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'frontend\controllers',
     'bootstrap' => ['log'],
@@ -25,6 +29,9 @@ return [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
+        ],
+        'formatter' => [
+            'dateFormat' => 'long',
         ],
     ],
     'params' => $params,

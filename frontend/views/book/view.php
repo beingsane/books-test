@@ -30,11 +30,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'date_create',
-            'date_update',
+            [
+                'attribute' => 'date_update',
+                'value' => Yii::$app->formatter->asDate($model->date),
+            ],
+            [
+                'attribute' => 'author_id',
+                'value' => $model->author->name,
+            ],
+            [
+                'attribute' => 'date_create',
+                'value' => Yii::$app->formatter->asDate($model->date_create),
+            ],
+            [
+                'attribute' => 'date_update',
+                'value' => Yii::$app->formatter->asDate($model->date_create),
+            ],
             'preview',
-            'date',
-            'author_id',
         ],
     ]) ?>
 
