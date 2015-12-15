@@ -3,6 +3,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\BookSearch */
@@ -44,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'preview',
                 'format' => 'html',
-                'value' => function($model) {
+                'value' => function ($model) {
                     if (!$model->preview) return '';
 
                     $link = Html::a(
@@ -60,8 +61,34 @@ $this->params['breadcrumbs'][] = $this->title;
             'date:date',
             'date_create:relativeTime',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+                'buttons' => [
+                    'view' => function ($url, $model, $key) {
+                        return Html::a(
+                            '<span class="glyphicon glyphicon-eye-open"></span>',
+                            null,
+                            [
+                                'title' => Yii::t('yii', 'View'),
+                                'class' => 'btn-view-book',
+                                'role' => 'button',
+                                'data-url' => Url::toRoute(['view', 'id' => $model->id])
+                            ]
+                        );
+                    },
+                ],
+            ],
         ],
     ]); ?>
+
+<?php
+    Modal::begin([
+        'id' => 'book-view-dialog',
+        'header' => '<h4>'.Yii::t('app', 'View').'</h4>',
+    ]);
+
+    Modal::end();
+?>
 
 </div>
