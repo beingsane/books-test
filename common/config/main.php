@@ -21,9 +21,9 @@ return [
         'user' => [
             'class' => 'dektrium\user\Module',
             'enableUnconfirmedLogin' => false,
-			'enableRegistration' => false,
-			'enableConfirmation' => false,
-            'enableFlashMessages' => false,   // for advanced template, it already shows flash messages
+            'enableRegistration' => true,
+            'enableConfirmation' => true,
+            'enableFlashMessages' => false,
             'confirmWithin' => 6 * 3600,
             'admins' => ['admin'],
 
