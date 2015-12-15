@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\helpers\Render;
+use common\models\Author;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\BookSearch */
@@ -14,20 +16,26 @@ use yii\widgets\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
+    <?php $render = new Render($form, $model); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $render->selectField('author_id', Author::getList()) ?>
+        </div>
 
-    <?= $form->field($model, 'name') ?>
+        <div class="col-md-6">
+            <?= $form->field($model, 'name') ?>
+        </div>
 
-    <?= $form->field($model, 'date_create') ?>
+        <div class="col-md-6">
+            <?= $render->dateField('date_from') ?>
+        </div>
 
-    <?= $form->field($model, 'date_update') ?>
+        <div class="col-md-6">
+            <?= $render->dateField('date_to') ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'preview') ?>
-
-    <?php // echo $form->field($model, 'date') ?>
-
-    <?php // echo $form->field($model, 'author_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

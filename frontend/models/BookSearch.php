@@ -12,14 +12,16 @@ use common\models\Book;
  */
 class BookSearch extends Book
 {
+    public $date_from;
+    public $date_to;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'author_id'], 'integer'],
-            [['name', 'date_create', 'date_update', 'preview', 'date'], 'safe'],
+            [['name', 'date_from', 'date_to', 'author_id'], 'safe'],
         ];
     }
 
@@ -55,22 +57,16 @@ class BookSearch extends Book
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'date_create' => $this->date_create,
-            'date_update' => $this->date_update,
-            'date' => $this->date,
-            'author_id' => $this->author_id,
-        ]);
+        $query->andFilterWhere(['author_id' => $this->author_id]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['between', 'date', $this->date_from, $this->date_to]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'preview', $this->preview]);
 
         return $dataProvider;
     }
 
     public function isOpen()
     {
-        return false;
+        return ($this->author_id || $this->name || $this->date_from || $this->date_to);
     }
 }

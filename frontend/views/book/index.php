@@ -42,8 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'preview',
             'author_id',
-            'date',
-            'date_create',
+            'date:date',
+            'date_create:relativeTime',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
