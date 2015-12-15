@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+    'defaultRoute' => 'book/index',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'frontend\controllers',
     'bootstrap' => ['log'],
