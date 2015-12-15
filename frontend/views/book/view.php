@@ -38,8 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'date_create:date',
             'date_update:date',
-            'preview',
         ],
     ]) ?>
+
+    <div class="image-gallery">
+        <a class="image-gallery-item" href="<?= Url::toRoute($model->getPreviewUrl()) ?>">
+            <img src="<?= Url::toRoute($model->getPreviewUrl()) ?>"></img>
+        </a>
+    </div>
 
 </div>

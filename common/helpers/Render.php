@@ -3,6 +3,7 @@ namespace common\helpers;
 
 use Yii;
 use kartik\select2\Select2;
+use kartik\file\FileInput;
 use common\widgets\datePicker;
 
 class Render
@@ -102,6 +103,24 @@ class Render
         $widgetOptions = array_replace_recursive($defaultWidgetOptions, $widgetOptions);
 
         return $this->form->field($this->model, $attribute, $fieldOptions)->widget(Select2::classname(), $widgetOptions);
+    }
+
+    function fileField($attribute, $widgetOptions = [], $fieldOptions = [])
+    {
+        $defaultWidgetOptions = [
+            'model' => $this->model,
+            'attribute' => $attribute,
+            'options' => [],
+            'pluginOptions' => [
+                'showPreview' => false,
+                'showUpload' => false,
+                'browseLabel' => '',
+                'removeLabel' => '',
+            ],
+        ];
+        $widgetOptions = array_replace_recursive($defaultWidgetOptions, $widgetOptions);
+
+        return $this->form->field($this->model, $attribute, $fieldOptions)->widget(FileInput::className(), $widgetOptions);
     }
 }
 

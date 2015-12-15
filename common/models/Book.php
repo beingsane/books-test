@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression as DbExpression;
+use yii\helpers\FileHelper;
 
 /**
  * This is the model class for table "books".
@@ -21,6 +22,14 @@ use yii\db\Expression as DbExpression;
  */
 class Book extends \yii\db\ActiveRecord
 {
+    const PREVIEW_PATH = '@webroot/images/preview';
+    const PREVIEW_URL = '@web/images/preview';
+
+
+    /** @var \yii\web\UploadedFile */
+    public $preview_file;
+
+
     /**
      * @inheritdoc
      */
@@ -39,7 +48,12 @@ class Book extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 100],
             [['author_id'], 'integer'],
             [['date'], 'safe'],
-            [['preview'], 'string', 'max' => 300]
+            [['preview'], 'string', 'max' => 300],
+            [['preview_file'], 'file',
+                'maxSize' => 10 * 1024 * 1024,
+                'extensions' => ['png', 'jpg', 'gif'],
+                'mimeTypes' => ['image/png', 'image/jpeg', 'image/gif'],
+            ],
         ];
     }
 
@@ -81,4 +95,55 @@ class Book extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Author::className(), ['id' => 'author_id']);
     }
+
+    public function getPreviewPath()
+    {
+        return Yii::getAlias(self::PREVIEW_PATH) . '/' . $this->preview;
+    }
+
+    public function getPreviewUrl()
+    {
+        return Yii::getAlias(self::PREVIEW_URL) . '/' .$this->preview;
+    }
+
+    /**
+     * Tries to save preview file before save
+     */
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        if (!$this->preview_file) {
+            return true;
+        }
+
+        if ($this->preview) {
+            unlink($this->getPreviewPath());
+        }
+
+        $randomName = uniqid();
+        $dir = substr($randomName, strlen($randomName) - 1, 1);
+        $this->preview = $dir . '/' . $randomName . '.' . $this->preview_file->extension;
+
+        $previewPath = $this->getPreviewPath();
+        FileHelper::createDirectory(dirname($previewPath));
+        $res = $this->preview_file->saveAs($previewPath);
+
+        if (!$res) {
+            $this->addError('preview_file', Yii::t('app', 'Cannot save file'));
+            return false;
+        }
+
+        return true;
+    }
+
+    public function afterDelete()
+    {
+        if ($this->preview) {
+            unlink($this->getPreviewPath());
+        }
+    }
 }
+

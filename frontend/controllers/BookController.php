@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
+use yii\web\UploadedFile;
 
 /**
  * BookController implements the CRUD actions for Book model.
@@ -75,13 +76,17 @@ class BookController extends Controller
     {
         $model = new Book();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->preview_file = UploadedFile::getInstance($model, 'preview_file');
+
+            if ($model->save()) {
+                return $this->redirect(Url::previous());
+            }
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -94,13 +99,17 @@ class BookController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(Url::previous());
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->preview_file = UploadedFile::getInstance($model, 'preview_file');
+
+            if ($model->save()) {
+                return $this->redirect(Url::previous());
+            }
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**

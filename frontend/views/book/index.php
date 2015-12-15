@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -40,7 +41,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'id',
             'name',
-            'preview',
+            [
+                'attribute' => 'preview',
+                'format' => 'html',
+                'value' => function($model) {
+                    if (!$model->preview) return '';
+
+                    $link = Html::a(
+                        '<img src="'. Url::toRoute($model->getPreviewUrl()) .'"></img>',
+                        Url::toRoute($model->getPreviewUrl()),
+                        ['class' => 'image-gallery-item']
+                    );
+
+                    return Html::tag('div', $link, ['class' => 'image-gallery']);
+                }
+            ],
             'author_id',
             'date:date',
             'date_create:relativeTime',

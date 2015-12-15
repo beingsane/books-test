@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\helpers\Render;
@@ -12,7 +13,7 @@ use common\models\Author;
 
 <div class="book-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php $render = new Render($form, $model); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -21,8 +22,18 @@ use common\models\Author;
 
     <?= $render->dateField('date') ?>
 
-    <?php // $form->field($model, 'preview')->textInput(['maxlength' => true]) ?>
 
+    <?php if ($model->preview) { ?>
+        <br>
+        <div class="image-gallery">
+            <a class="image-gallery-item" href="<?= Url::toRoute($model->getPreviewUrl()) ?>">
+                <img src="<?= Url::toRoute($model->getPreviewUrl()) ?>"></img>
+            </a>
+        </div>
+        <br>
+    <?php } ?>
+
+    <?= $render->fileField('preview_file') ?>
 
 
     <div class="form-group">
